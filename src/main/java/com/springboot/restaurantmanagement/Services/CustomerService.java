@@ -3,19 +3,16 @@ package com.springboot.restaurantmanagement.Services;
 import com.springboot.restaurantmanagement.DTOs.CustomerDto;
 import com.springboot.restaurantmanagement.Entities.Customer;
 import com.springboot.restaurantmanagement.Repositories.CustomerRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class CustomerService {
-    private  CustomerRepository customerRepository;
-
+    private final CustomerRepository customerRepository;
 
     public Customer save(CustomerDto customerDto){
         Customer customer = new Customer();
