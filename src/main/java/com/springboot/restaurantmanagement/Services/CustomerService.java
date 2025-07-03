@@ -36,7 +36,7 @@ public class CustomerService {
         return customerRepository.findAll();
     }
     public Customer updateByName(String name,CustomerDto customerDto){
-        var customer = customerRepository.findByName(name);
+        var customer = customerRepository.findByNameContainingIgnoreCase(name);
         customer.setName(customerDto.getName());
         customer.setEmail(customerDto.getEmail());
         customer.setPhone_number(customerDto.getPhone_number());
