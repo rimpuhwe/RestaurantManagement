@@ -25,7 +25,7 @@ import java.util.List;
 public class CustomerController {
     private final CustomerService service;
 
-    @PostMapping("/add_new")
+    @PostMapping
     @Operation(
             summary = "this route is used for saving/create new customer"
     )
@@ -33,14 +33,18 @@ public class CustomerController {
         Customer newCustomer = service.save(customer);
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
     }
-    @GetMapping("/get/{id}")
-    @Operation(
-            summary = "this route is used to get customer using id"
-    )
-    public ResponseEntity<Customer> getById(@PathVariable long id){
-        return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
+    @GetMapping("/get")
+    public ResponseEntity<Customer> getCustomer(@RequestParam(required = false) Long id, @RequestParam(required = false) String name) {
+        if (id != null) {
+            return new ResponseEntity<>(service.getById(id), HttpStatus.OK);
+        } else if (name != null && !name.isEmpty()) {
+            return new ResponseEntity<>(service.getByName(name), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
-    @GetMapping("/get_all")
+
+    @GetMapping()
     @Operation(
             summary = "this route is used for getting all customers"
     )
@@ -59,47 +63,43 @@ public class CustomerController {
         List<Customer> customers = service.getAllBy(start, end);
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
-    @GetMapping("/get/name")
-    @Operation(
-            summary = "this route is used for getting customer searching by name"
-    )
-    public ResponseEntity<Customer> getByName(@RequestParam String name){
-        return  new ResponseEntity<>(service.getByName(name), HttpStatus.OK);
+
+    @PutMapping()
+    @Operation(summary = "Update a customer by id or name")
+    public ResponseEntity<Customer> updateCustomer(
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String name,
+            @RequestBody CustomerDto customer) {
+
+        Customer updatedCustomer = null;
+
+        if (id != null) {
+            updatedCustomer = service.update(id, customer);
+        } else if (name != null) {
+            updatedCustomer = service.updateByName(name, customer);
+        }
+
+        return ResponseEntity.ok(updatedCustomer);
     }
 
-    @PutMapping("/update/")
-    @Operation(
-            summary = "this route is used to update customer by his/her name"
-    )
-    public ResponseEntity<Customer> update(@Valid @RequestBody CustomerDto customer , @RequestParam String name){
-        Customer updatedCustomer = service.updateByName(name , customer);
-        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+    @DeleteMapping
+    @Operation(summary = "Delete a customer by id or name")
+    public ResponseEntity<String> deleteCustomer(
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String name) {
+
+        if (id != null) {
+            service.deleteById(id);
+            return ResponseEntity.ok("Customer with id " + id + " deleted successfully.");
+        } else if (name != null) {
+            service.deleteByName(name);
+            return ResponseEntity.ok("Customer with name '" + name + "' deleted successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Please provide either id or name to delete a customer.");
+        }
     }
-    @PutMapping("/update/{id}")
-    @Operation(
-            summary = "this route is used to update customer with the help of id"
-    )
-    public ResponseEntity<Customer> update(@PathVariable long id, @RequestBody CustomerDto customerDto){
-        Customer updatedCustomer = service.update(id, customerDto);
-        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
-    }
-    @DeleteMapping("/remove/{id}")
-    @Operation(
-            summary = "this route is used for deleting  customer by his/her id"
-    )
-    public ResponseEntity<?> remove(@PathVariable long id){
-        service.deleteById(id);
-        return new ResponseEntity<>("deleted successfully",HttpStatus.OK);
-    }
-    @DeleteMapping("/remove/name")
-    @Operation(
-            summary = "this route is used for deleting customer by his/her name"
-    )
-    public ResponseEntity<?> removeByName(@RequestParam String name){
-        service.deleteByName(name);
-        return new ResponseEntity<>(name + "successfully deleted",HttpStatus.OK);
-    }
-    @DeleteMapping("/remove/all")
+
+    @DeleteMapping("/remove")
     @Operation(
             summary = "this route is used to delete entire customers"
     )
