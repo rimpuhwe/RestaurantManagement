@@ -11,7 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -30,7 +33,7 @@ public class CustomerController {
         Customer newCustomer = service.save(customer);
         return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
     }
-    @GetMapping("/get /{id}")
+    @GetMapping("/get/{id}")
     @Operation(
             summary = "this route is used to get customer using id"
     )
@@ -49,8 +52,11 @@ public class CustomerController {
     @Operation(
             summary = "this route is used for getting customers at a given period of time"
     )
-    public ResponseEntity<List<Customer>> getAllBy(@RequestParam LocalDateTime from, @RequestParam LocalDateTime to){
-        List<Customer> customers = service.getAllBy(from, to);
+    public ResponseEntity<List<Customer>> getAllBy(@RequestParam String from, @RequestParam String to){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime start = LocalDate.parse(from, formatter).atStartOfDay();
+        LocalDateTime end = LocalDate.parse(to, formatter).atTime(LocalTime.MAX);
+        List<Customer> customers = service.getAllBy(start, end);
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
     @GetMapping("/get/name")
