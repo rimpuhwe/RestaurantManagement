@@ -32,11 +32,13 @@ public class CustomerService {
         return customerRepository.findById(id).orElseThrow(()-> new RuntimeException("Customer not found"));
 
     }
-    public List<Customer> getAll(LocalDateTime from, LocalDateTime to){
-
+    public List<Customer> getAllBy(LocalDateTime from, LocalDateTime to){
         return customerRepository.findAllBetween(from, to);
     }
-    public Customer update(String name,CustomerDto customerDto){
+    public List<Customer> getAll(){
+        return customerRepository.findAll();
+    }
+    public Customer updateByName(String name,CustomerDto customerDto){
         var customer = customerRepository.findByName(name);
         customer.setName(customerDto.getName());
         customer.setEmail(customerDto.getEmail());
