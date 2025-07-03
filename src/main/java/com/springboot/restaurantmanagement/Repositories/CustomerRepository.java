@@ -9,7 +9,7 @@ import java.util.List;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
   Customer findByNameContainingIgnoreCase(String name);
   Customer findByName(String name);
-  List<Customer> findAllBetween(LocalDateTime from, LocalDateTime to);
+  List<Customer> findByCreatedAtBetween(LocalDateTime from, LocalDateTime to);
   void deleteByName(String name);
 
 }

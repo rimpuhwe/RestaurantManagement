@@ -33,7 +33,7 @@ public class CustomerService {
 
     }
     public List<Customer> getAllBy(LocalDateTime from, LocalDateTime to){
-        return customerRepository.findAllBetween(from, to);
+        return customerRepository.findByCreatedAtBetween(from, to);
     }
     public List<Customer> getAll(){
         return customerRepository.findAll();
