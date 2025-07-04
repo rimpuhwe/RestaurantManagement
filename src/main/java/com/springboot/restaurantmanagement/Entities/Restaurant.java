@@ -33,4 +33,8 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", orphanRemoval = true)
     private List<Menu> menus;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "restaurant_id")
+    private List<Customer> customers = new ArrayList<>();
+
 }
