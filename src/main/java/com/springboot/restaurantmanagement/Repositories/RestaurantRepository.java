@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
-    List<Restaurant> findByStatusIgnoreCase(RestaurantStatus status);
+    List<Restaurant> findByStatus(RestaurantStatus status);
 
     List<Restaurant> findByAddressContainingIgnoreCase(String address);
 
     Restaurant findByNameContainingIgnoreCase(String name);
+
+  List<Restaurant> findByStatusAndAddressContainingIgnoreCase(RestaurantStatus status, String address);
 }
