@@ -59,8 +59,8 @@ public class RestaurantService {
     public Restaurant getRestaurantById(Long id) {
         return restaurantRepository.findById(id).orElseThrow(()->new RuntimeException("Restaurant not found"));
     }
-    public Restaurant updateRestaurant(String name,RestaurantDto dto) {
-        var restaurant = restaurantRepository.findByNameContainingIgnoreCase(name);
+    public Restaurant updateRestaurant(Long id,RestaurantDto dto) {
+        var restaurant = restaurantRepository.findById(id).orElseThrow(()->new RuntimeException("Restaurant not found"));
         restaurant.setName(dto.getName());
         restaurant.setPhone(dto.getPhone());
         restaurant.setStatus(dto.getStatus());
