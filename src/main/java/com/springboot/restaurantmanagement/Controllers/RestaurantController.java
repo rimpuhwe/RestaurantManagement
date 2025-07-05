@@ -78,7 +78,7 @@ public class RestaurantController {
     }
 
 
-    @GetMapping("/List/{id}")
+    @GetMapping("/{id}/customers")
     @Operation(
             summary = "List customers of a restaurant",
             description = "Returns a list of customers associated with a specific restaurant ID"
@@ -89,13 +89,13 @@ public class RestaurantController {
     }
 
 
-    @PutMapping("/{name}")
+    @PutMapping("/{id}")
     @Operation(
             summary = "Update restaurant by name",
             description = "Updates the details of the restaurant identified by the given name"
     )
-    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable String name,@Valid @RequestBody RestaurantDto dto) {
-        Restaurant restaurant = restaurantService.updateRestaurant(name, dto);
+    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable Long id,@Valid @RequestBody RestaurantDto dto) {
+        Restaurant restaurant = restaurantService.updateRestaurant(id, dto);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
 
@@ -109,16 +109,6 @@ public class RestaurantController {
         return new ResponseEntity<>("Restaurant with id: "+ id+ " is successful deleted",HttpStatus.OK);
     }
 
-
-    @DeleteMapping("/name")
-    @Operation(
-            summary = "Delete a restaurant by name",
-            description = "Removes a restaurant from the system using its name"
-    )
-    public ResponseEntity<?> deleteRestaurantName(@RequestParam String name) {
-        restaurantService.deleteRestaurant(name);
-        return new ResponseEntity<>(name +" is successful deleted",HttpStatus.OK);
-    }
 
 
     @DeleteMapping
