@@ -94,7 +94,7 @@ public class RestaurantController {
             summary = "Update restaurant by name",
             description = "Updates the details of the restaurant identified by the given name"
     )
-    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable long id,@Valid @RequestBody RestaurantDto dto) {
+    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable Long id,@Valid @RequestBody RestaurantDto dto) {
         Restaurant restaurant = restaurantService.updateRestaurant(id, dto);
         return new ResponseEntity<>(restaurant, HttpStatus.OK);
     }
@@ -108,7 +108,6 @@ public class RestaurantController {
         restaurantService.deleteRestaurant(id);
         return new ResponseEntity<>("Restaurant with id: "+ id+ " is successful deleted",HttpStatus.OK);
     }
-
 
 
 
