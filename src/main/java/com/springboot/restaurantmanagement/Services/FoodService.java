@@ -48,13 +48,19 @@ public class FoodService {
     public FoodManagement getFoodById(Long id) {
         return foodRepository.findById(id).orElseThrow(()-> new RuntimeException("Could not find food with id: " + id));
     }
-    public FoodManagement updateFood(Long id,FoodDto food) {
+    public FoodManagement updateFood(Long id,String name,FoodDto food) {
         var updatedFood = foodRepository.findById(id).orElseThrow(()-> new RuntimeException("Could not find food with id: " + id));
-        updatedFood.setName(food.getName());
-        updatedFood.setPrice(food.getPrice());
-        updatedFood.setCategory(food.getCategory());
-        updatedFood.setStatus(food.getStatus());
+        if(updatedFood != null && updatedFood.getRestaurant().getName().equals(name)) {
+            updatedFood.setName(food.getName());
+            updatedFood.setPrice(food.getPrice());
+            updatedFood.setCategory(food.getCategory());
+            updatedFood.setStatus(food.getStatus());
+        }
+        else{
+            throw new RuntimeException("the food doesn't belong to the restaurant");
+        }
         return foodRepository.save(updatedFood);
+
     }
     public void deleteFood(Long id) {
         foodRepository.deleteById(id);
