@@ -56,4 +56,10 @@ public class FoodService {
         updatedFood.setStatus(food.getStatus());
         return foodRepository.save(updatedFood);
     }
+    public void deleteFood(Long id) {
+        foodRepository.deleteById(id);
+    }
+    public void deleteAllFood() {
+        foodRepository.deleteAll();
+    }
 }
