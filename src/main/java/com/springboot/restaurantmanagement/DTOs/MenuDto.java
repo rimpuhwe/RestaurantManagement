@@ -13,15 +13,12 @@ import java.io.Serializable;
  * DTO for {@link com.springboot.restaurantmanagement.Entities.Menu}
  */
 @Data
-public class MenuDto{
+public class MenuDto {
     @NotNull
-    @NotBlank(message = "it must be either food's name or drink's name")
+    @NotBlank
     String name;
-
-    @NotNull
-    @Min(message = "price must be non-negative number", value = 0)
+    @Min(message = "price must be a non-negative ", value = 0)
     double price;
-
     @NotNull
     MenuStatus status;
 }

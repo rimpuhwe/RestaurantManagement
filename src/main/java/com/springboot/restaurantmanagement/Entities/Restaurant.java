@@ -1,5 +1,6 @@
 package com.springboot.restaurantmanagement.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.restaurantmanagement.Enums.RestaurantStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class Restaurant {
     private RestaurantStatus status;
 
     @OneToMany(mappedBy = "restaurant", orphanRemoval = true)
+    @JsonManagedReference
     private List<Menu> menus;
 
     @OneToMany(cascade = CascadeType.ALL)

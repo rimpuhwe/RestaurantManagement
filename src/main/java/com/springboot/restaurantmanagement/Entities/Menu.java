@@ -1,5 +1,6 @@
 package com.springboot.restaurantmanagement.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.springboot.restaurantmanagement.Enums.MenuStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public abstract class Menu {
 
     @ManyToOne
     @JoinColumn(name = "restaurant")
+    @JsonBackReference
     private Restaurant restaurant;
 
 }
