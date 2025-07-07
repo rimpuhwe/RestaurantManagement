@@ -4,11 +4,11 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: raissamich12@gmail.com
+    password: esrsu
     url: jdbc:postgresql://localhost:5432/RestaurantManagement
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
