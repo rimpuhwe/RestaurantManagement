@@ -39,6 +39,10 @@ public class Order {
     @Column(name = "order_status")
     private OrderStatus orderStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
+    private double totalPrice;
 
 
 }
