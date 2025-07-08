@@ -37,7 +37,7 @@ public class DrinkService {
         List<DrinksManagement> allDrinks = repository.findAll();
 
         return allDrinks.stream()
-                .filter(drink -> name == null || drink.getName().equalsIgnoreCase(name))
+                .filter(drink -> name == null || drink.getRestaurant().getName().equalsIgnoreCase(name))
                 .filter(drink -> category == null || drink.getCategory() == category)
                 .filter(drink -> volume == null || Double.compare(drink.getVolume(), volume) == 0)
                 .filter(drink -> status == null || drink.getStatus() == status)
