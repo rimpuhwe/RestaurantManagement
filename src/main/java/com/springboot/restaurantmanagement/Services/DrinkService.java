@@ -49,11 +49,16 @@ public class DrinkService {
     public List<DrinksManagement> findAll() {
         return repository.findAll();
     }
-    public DrinksManagement update(DrinksUpdateDto dto, Long id){
+    public DrinksManagement update(DrinksUpdateDto dto, Long id,String name) {
         DrinksManagement drinks = repository.findById(id).orElseThrow(()-> new RuntimeException("could not find  a Drink with id: " + id));
-        drinks.setPrice(dto.getPrice());
-        drinks.setWeight(dto.getWeight());
-        drinks.setStatus(dto.getStatus());
+        if(drinks != null && drinks.getRestaurant().getName().equals(name)) {
+            drinks.setPrice(dto.getPrice());
+            drinks.setWeight(dto.getWeight());
+            drinks.setStatus(dto.getStatus());
+        }
+        else{
+            throw new RuntimeException("could not find  a Drink with id: " + id + "in "+ name);
+        }
 
         return repository.save(drinks);
 
