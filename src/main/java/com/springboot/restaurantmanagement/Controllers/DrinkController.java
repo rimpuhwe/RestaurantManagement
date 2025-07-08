@@ -59,7 +59,7 @@ public class DrinkController {
             summary = "Filter drink by category, status and restaurantname ,volume",
             description = "Returns drinks items filtered by DrinkCategory, MenuStatus, and restaurant name, volume."
     )
-    public ResponseEntity<List<DrinksManagement>> find(@RequestParam DrinksCategory category, @RequestParam MenuStatus status, @RequestParam String restaurantName , @RequestParam Double volume) {
+    public ResponseEntity<List<DrinksManagement>> find(@RequestParam(required = false) DrinksCategory category, @RequestParam(required = false) MenuStatus status, @RequestParam(required = false) String restaurantName , @RequestParam(required = false) Double volume) {
         List<DrinksManagement> drinks = service.findBy(restaurantName,category,volume, status);
         return new ResponseEntity<>(drinks, HttpStatus.OK);
     }
