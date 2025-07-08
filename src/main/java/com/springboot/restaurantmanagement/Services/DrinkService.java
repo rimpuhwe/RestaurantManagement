@@ -25,6 +25,7 @@ public class DrinkService {
         drinks.setName(dto.getName());
         drinks.setPrice(dto.getPrice());
         drinks.setCategory(dto.getCategory());
+        drinks.setStatus(dto.getStatus());
         drinks.setWeight(dto.getWeight());
         drinks.setVolume(dto.getVolume());
         drinks.setRestaurant(restaurant);
