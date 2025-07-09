@@ -59,21 +59,17 @@ public class DrinkController {
             summary = "Filter drink by category, status and restaurantname ,volume",
             description = "Returns drinks items filtered by DrinkCategory, MenuStatus, and restaurant name, volume."
     )
-    public ResponseEntity<List<DrinksManagement>> find(@RequestParam(required = false) DrinksCategory category, @RequestParam(required = false) MenuStatus status, @RequestParam(required = false) String restaurantName , @RequestParam(required = false) Double volume) {
-        List<DrinksManagement> drinks = service.findBy(restaurantName,category,volume, status);
+    public ResponseEntity<List<DrinksManagement>> find(
+            @RequestParam(required = false) DrinksCategory category,
+            @RequestParam(required = false) MenuStatus status,
+            @RequestParam(required = false) String restaurantName,
+            @RequestParam(required = false) Double volume,
+            @RequestParam(required = false) Double price1,
+            @RequestParam(required = false) Double price2) {
+        List<DrinksManagement> drinks = service.findBy(restaurantName,category,volume, status,price1,price2);
         return new ResponseEntity<>(drinks, HttpStatus.OK);
     }
 
-
-    @GetMapping("/find")
-    @Operation(
-            summary = "Filter drink with the price between a given range",
-            description = "Returns drinks items that has price between the specified range."
-    )
-    public ResponseEntity<List<DrinksManagement>> price(@RequestParam double price1, @RequestParam double price2) {
-        List<DrinksManagement> drinks = service.findByPrice(price1, price2);
-        return new ResponseEntity<>(drinks, HttpStatus.OK);
-    }
 
     @PutMapping("/{id}")
     @Operation(

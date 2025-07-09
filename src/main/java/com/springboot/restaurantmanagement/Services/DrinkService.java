@@ -34,7 +34,7 @@ public class DrinkService {
     public DrinksManagement findById(Long id) {
         return repository.findById(id).orElseThrow(()-> new RuntimeException("could not find  a Drink with id: " + id));
     }
-    public List<DrinksManagement> findBy(String name, DrinksCategory category, Double volume, MenuStatus status) {
+    public List<DrinksManagement> findBy(String name, DrinksCategory category, Double volume, MenuStatus status, Double price1, Double price2) {
         List<DrinksManagement> allDrinks = repository.findAll();
 
         return allDrinks.stream()
@@ -42,10 +42,8 @@ public class DrinkService {
                 .filter(drink -> category == null || drink.getCategory() == category)
                 .filter(drink -> volume == null || Double.compare(drink.getVolume(), volume) == 0)
                 .filter(drink -> status == null || drink.getStatus() == status)
+                .filter(drink -> price1 == null || price2 == null || (drink.getPrice() >= price1 && drink.getPrice() <= price2))
                 .collect(Collectors.toList());
-    }
-    public List<DrinksManagement> findByPrice(Double price1,Double price2) {
-        return repository.findAllByPriceBetween(price1 , price2);
     }
     public List<DrinksManagement> findAll() {
         return repository.findAll();
