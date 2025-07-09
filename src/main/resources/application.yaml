@@ -4,7 +4,7 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: esrsu
+    password: raissamich12@gmail.com
     url: jdbc:postgresql://localhost:5432/RestaurantManagement
   jpa:
     hibernate:
