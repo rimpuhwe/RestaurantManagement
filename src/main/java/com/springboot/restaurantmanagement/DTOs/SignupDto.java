@@ -11,4 +11,6 @@ public class SignupDto {
     private String fullName;
     private String email;
     private String password;
+    private String role; // "SUPER_ADMIN", "BRANCH_MANAGER", "WAITER"
+    private Long branchId; // null for SUPER_ADMIN, required for others
 }

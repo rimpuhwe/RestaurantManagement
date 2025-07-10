@@ -42,9 +42,7 @@ public class OrderService {
         for (OrderItemDTO itemDto : orderDto.getOrderItems()) {
             OrderItem item = new OrderItem();
             item.setOrder(order);
-            item.setProductId(itemDto.getProductId());
             item.setQuantity(itemDto.getQuantity());
-            item.setPrice(itemDto.getPrice());
             totalPrice += itemDto.getPrice() * itemDto.getQuantity();
             items.add(item);
         }
@@ -80,9 +78,7 @@ public class OrderService {
     private OrderDto convertToDto(Order order) {
         List<OrderItemDTO> itemDTOs = order.getOrderItems().stream().map(item -> {
             OrderItemDTO dto = new OrderItemDTO();
-            dto.setProductId(item.getProductId());
             dto.setQuantity(item.getQuantity());
-            dto.setPrice(item.getPrice());
             return dto;
         }).toList();
 
