@@ -2,6 +2,7 @@ package com.springboot.restaurantmanagement.Entities;
 
 import com.springboot.restaurantmanagement.Enums.OrderStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+    @NotNull
     private double totalPrice;
 
 
