@@ -2,6 +2,7 @@ package com.springboot.restaurantmanagement.Services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class EmailService {
-
+    @Autowired
     private final JavaMailSender mailSender;
 
+    // Sends an OTP email
     public void sendOtpEmail(String to, String otp, String purpose) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
@@ -36,6 +38,7 @@ public class EmailService {
         }
     }
 
+    // Creates the email title based on why it's sent
     private String getSubject(String purpose) {
         switch (purpose.toUpperCase()) {
             case "SIGNUP":
@@ -47,6 +50,7 @@ public class EmailService {
         }
     }
 
+    // Writes the message for the OTP email
     private String getEmailBody(String otp, String purpose) {
         StringBuilder body = new StringBuilder();
         body.append("Dear User,\n\n");
@@ -73,6 +77,7 @@ public class EmailService {
         return body.toString();
     }
 
+    // Sends a welcome email after signup
     public void sendWelcomeEmail(String to, String fullName, String role) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
@@ -88,6 +93,7 @@ public class EmailService {
         }
     }
 
+    // Writes the message for the welcome email
     private String getWelcomeEmailBody(String fullName, String role) {
         return String.format(
                 "Dear %s,\n\n" +
