@@ -1,11 +1,31 @@
 spring:
   application:
     name: RestaurantManagement
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: raissamich12@gmail.com
+    password: esrsu
     url: jdbc:postgresql://localhost:5432/RestaurantManagement
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: hopegaju@gmail.com
+    password: kamikazilinda
+    from: noreply@restaurantmanagement.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+        debug: false
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -14,5 +34,11 @@ spring:
       hibernate:
         format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
 server:
   port: 8080
+
+logging:
+  level:
+    org.springframework.mail: INFO
+    com.springboot.restaurantmanagement: DEBUG
