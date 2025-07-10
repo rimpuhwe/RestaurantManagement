@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/restaurant_db
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your-email@gmail.com
+    password: your-app-password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+# JWT Configuration
+jwt:
+  secret: mySecretKeyForJWTTokenGeneration123456789
+  expiration: 86400000 # 24 hours in milliseconds
+
+# OTP Configuration
+otp:
+  expiration:
+    minutes: 5
+
+# Logging
+logging:
+  level:
+    com.springboot.restaurantmanagement: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
