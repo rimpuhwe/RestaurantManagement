@@ -44,7 +44,6 @@ public class OrderService {
             item.setOrder(order);
             item.setProductId(itemDto.getProductId());
             item.setQuantity(itemDto.getQuantity());
-            item.setPrice(itemDto.getPrice());
             totalPrice += itemDto.getPrice() * itemDto.getQuantity();
             items.add(item);
         }
@@ -82,7 +81,6 @@ public class OrderService {
             OrderItemDTO dto = new OrderItemDTO();
             dto.setProductId(item.getProductId());
             dto.setQuantity(item.getQuantity());
-            dto.setPrice(item.getPrice());
             return dto;
         }).toList();
 
