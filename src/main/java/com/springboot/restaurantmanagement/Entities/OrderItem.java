@@ -29,5 +29,5 @@ public class OrderItem {
     @JoinColumn(name = "menu_item_id")
     private Menu menuItem;
 
-    private Long productId;
+
 }
